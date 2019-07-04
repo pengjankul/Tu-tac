@@ -7,19 +7,31 @@ use Illuminate\Database\Migrations\Migration;
 class CreateNotificationsTable extends Migration
 {
     /**
+     * Schema table name to migrate
+     * @var string
+     */
+    public $tableName = 'notifications';
+
+    /**
      * Run the migrations.
+     * @table notifications
      *
      * @return void
      */
     public function up()
     {
-        Schema::create('notifications', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->string('type');
-            $table->morphs('notifiable');
+        Schema::create($this->tableName, function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+            $table->uuid('id');
+            $table->primary('id');
+            $table->string('type', 191);
+            $table->string('notifiable_type', 191);
+            $table->unsignedBigInteger('notifiable_id');
             $table->text('data');
-            $table->timestamp('read_at')->nullable();
-            $table->timestamps();
+            $table->timestamp('read_at')->nullable()->default(null);
+
+            $table->index(["notifiable_type", "notifiable_id"], 'notifications_notifiable_type_notifiable_id_index');
+            $table->nullableTimestamps();
         });
     }
 
@@ -28,8 +40,8 @@ class CreateNotificationsTable extends Migration
      *
      * @return void
      */
-    public function down()
-    {
-        Schema::dropIfExists('notifications');
-    }
+     public function down()
+     {
+       Schema::dropIfExists($this->tableName);
+     }
 }

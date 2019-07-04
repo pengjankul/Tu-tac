@@ -11,41 +11,41 @@
 |
  */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
-Auth::routes();
+Route::get('/', 'HomeController@index');
+Route::get('dashboard', 'HomeController@index')->name("dashboard");
+// Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::resource('customers', 'CustomersController');
 
-Auth::routes();
+Route::resource('researchers', 'ResearchersController');
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::resource('accountCharts', 'AccountChartController');
+Route::resource('accountChartsTu', 'AccountChartTuController');
 
-Route::get('send', 'HomeController@sendNotification');
+// service accounting  json
+Route::get('getAccountChartJson', 'AccountChartController@getAccountChart');
+Route::get('getAccount', 'AccountChartController@getAccountID');
 
-Route::get('/dog', [
-    'uses' => 'DogController@create',
-]);
+//service accouting tu json
+Route::get('getAccountChartTuJson', 'AccountChartTuController@getAccountChart');
+Route::get('getAccountTu', 'AccountChartTuController@getAccountID');
+Route::get('getTreeAccountTu', 'AccountChartTuController@getAccountTree');
 
-Route::post('/create', [
-    'uses' => 'DogController@store',
-]);
+//insert data tmp account charts
+Route::get('insertAccount', 'AccountChartController@insertAccountTmp');
 
-Route::get('/list', [
-    'uses' => 'DogController@show',
-]);
+//export
+Route::get('accTuAcc/export', 'AccountChartController@export'); //ผังบัญชี tu rac
+Route::get('accTu/export', 'AccountChartTuController@export'); //ผังบัญชี มธ
 
-Route::get('/edit/{id}', [
-    'uses' => 'DogController@edit',
-]);
 
-Route::post('/update/{id}', [
-    'uses' => 'DogController@update',
-]);
+Route::resource('institutions', 'InstitutionsController');
 
-Route::resource('dogs', 'DogController');
+Route::resource('accountAssets', 'AccountAssetController');

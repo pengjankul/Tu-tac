@@ -2,38 +2,76 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>{{config('app.name')}}</title>
+    <title>{{config('app.name')}} | TU-RAC | Account</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Bootstrap 4.1.1 -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css">
+
     <!-- Theme style -->
+    {{--
     <link rel="stylesheet" href="https://unpkg.com/@coreui/coreui/dist/css/coreui.min.css">
+    --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@coreui/coreui@2.1.12/dist/css/coreui.min.css">
+
     <!-- Ionicons -->
-    <link rel="stylesheet" href="https://unpkg.com/@coreui/icons/css/coreui-icons.min.css">
+    {{-- <link rel="stylesheet" href="https://unpkg.com/@coreui/icons/css/coreui-icons.min.css">
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.3.0/css/flag-icon.min.css">
+     --}}
+     
+     
+
+    <link rel="stylesheet" href="{{asset('css/icofont/icofont.min.css')}}">
+
+    {{-- font --}}
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+
+    <link rel="icon" href="{{asset('img/stats-icon.png')}}" type="image/png" sizes="16x16">
+    <link rel="stylesheet" href="{{asset('css/mainapp.css')}}">
+
+    
+    @yield('css')
+
 </head>
 <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
 <header class="app-header navbar">
     <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="navbar-brand" href="#">
-        <img class="navbar-brand-full" src="http://infyom.com/images/logo/blue_logo_150x150.jpg" width="30" height="30"
-             alt="Infyom Logo">
-        <img class="navbar-brand-minimized" src="http://infyom.com/images/logo/blue_logo_150x150.jpg" width="30"
-             height="30" alt="Infyom Logo">
+    <a class="navbar-brand" href="{!! route('dashboard') !!}" style="display: table; padding: 2px">
+        <img class="navbar-brand-full" src="{{asset('img/stats-icon.png')}}" width="30" height="30" style="margin-top: 8px"
+             alt="TURAC Logo">
+        <img class="navbar-brand-minimized" src="{{asset('img/stats-icon.png')}}" width="30"
+             height="30" alt="TURAC Logo">
+        <span style="font-size: 12px; color: #333; font-weight: bold">ระบบสารสนเทศเพื่อบันทึกบัญชี</span>
+        <div style="margin-left:15%; margin-top:-12px; float: left; font-size: 12px; color: #333; font-weight: bold">(Dashboard)</div>
     </a>
     <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-lg-show">
         <span class="navbar-toggler-icon"></span>
     </button>
 
+    {{-- header menu --}}
+    <ul class="nav navbar-nav d-md-down-none menus">
+        {{-- <li class="nav-item px-3">
+        <a class="nav-link" href="#">Dashboard</a>
+        </li>
+        <li class="nav-item px-3">
+        <a class="nav-link" href="#">Users</a>
+        </li>
+        <li class="nav-item px-3">
+        <a class="nav-link" href="#">Settings</a>
+        </li> --}}
+        @include('layouts.menu')
+    </ul>
+
+
     <ul class="nav navbar-nav ml-auto">
         <li class="nav-item d-md-down-none">
             <a class="nav-link" href="#">
-                <i class="icon-bell"></i>
+                <i class="icofont-alarm"></i>
                 <span class="badge badge-pill badge-danger">5</span>
             </a>
         </li>
@@ -81,22 +119,29 @@
 </div>
 <footer class="app-footer">
     <div>
-        <a href="https://infyom.com">Infyom </a>
-        <span>&copy; 2019 infyomLabs.</span>
+        <a href="#">TURAC </a>
+        <span>&copy; 2019 Account.</span>
     </div>
     <div class="ml-auto">
         <span>Powered by</span>
-        <a href="https://coreui.io">CoreUI</a>
+        <a style="color:#fff" href="https://coreui.io">IT Service & Consultant</a>
     </div>
 </footer>
 </body>
 <!-- jQuery 3.1.1 -->
 <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+    const url = '{!! url("/") !!}'
+    $("body").removeClass("sidebar-lg-show");
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
-<script src="https://unpkg.com/@coreui/coreui/dist/js/coreui.min.js"></script>
+{{-- <script src="https://unpkg.com/@coreui/coreui/dist/js/coreui.min.js"></script> --}}
+<script src="https://cdn.jsdelivr.net/npm/@coreui/coreui@2.1.12/dist/js/coreui.min.js"></script>
+
 @yield('scripts')
+@stack('scripts')
 
 </html>
